@@ -3,22 +3,42 @@ require('cypress-xpath')
 describe('Login', () => {
   it('pos-login-berhasil', () => {
     // URL
-    cy.visit('https://my.alazka.or.id/login')
+    cy.visit('https://www.tokopedia.com/')
     // Cek URL Benar
-    cy.url().should('include', '/login')
-    // input username
-    cy.xpath("//form[@class='form-validation']//input[@placeholder='Masukan username']").type('iglobalAdmAz')
+    
+    //search product
+    cy.xpath("//input[@placeholder='Cari di Tokopedia']").should('be.visible').type('Iphone 14pro');
+    cy.xpath("//div[normalize-space()='iphone 14pro']").click()
 
-    // Password
-    cy.xpath("//input[@id='user-password']").type('#$%C1nt41Pr0dukP1ntr0')
+    cy.xpath("//input[@placeholder='Harga Minimum']")
+    .should('be.visible')
+    .type('100000')
+    .should('have.value', '100000') // Confirm that the value was typed correctly
+    .click();
 
-    // Click button login
-    cy.xpath("//button[@id='login']").click()
+    cy.get("input[placeholder='Harga Maksimum']")
+    .should('be.visible')
+    .invoke('val', '300000')
+    .should('have.value', '300000')
+    .click();
 
-    // cek user
-    cy.xpath("//span[@class='username username-hide-on-mobile']").should('include.text', 'iglobalAdmAz')
-   
+    cy.xpath("//span[normalize-space()='Official Store']") // Use 'cy.get()' with CSS selector
+    cy.xpath("//div[normalize-space()='Official Store']").click()
+
+
+
+// Using cy.xpath() to select and interact with the element
+cy.xpath("//p[@class='css-3tkidh-unf-heading e1qvo2ff8'][normalize-space()='Harga Terendah']")
+cy.xpath("//div[normalize-space()='Harga Terendah']").click()
+
+
+
+    // cy.xpath("//p[@class='css-3tkidh-unf-heading e1qvo2ff8'][normalize-space()='Harga Terendah']") // Use 'cy.get()' with CSS selector
+    // cy.xpath("//div[normalize-space()='Harga Terendah']").click()
+    
+  
   })
 })
+
 
 
